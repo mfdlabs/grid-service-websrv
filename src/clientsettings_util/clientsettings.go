@@ -51,26 +51,37 @@ func mergeMaps(a, b map[string]interface{}) map[string]interface{} {
 	return a
 }
 
+func (csp *ClientSettingsProvider) resolveWithDependencies(group string) (map[string]interface{}, bool) {
+	var (
+		cs map[string]interface{}
+		ok bool
+	)
+	if cs, ok = csp.cachedGroupSettings[group]; !ok {
+		return nil, false
+	}
+
+	if depends, ok := csp.cachedGroupDepends[group]; ok {
+		oldCs := cs
+		cs = make(map[string]interface{})
+
+		for _, depend := range depends {
+			if dependSettings, ok := csp.resolveWithDependencies(depend); ok {
+				cs = mergeMaps(cs, dependSettings)
+			}
+		}
+
+		cs = mergeMaps(cs, oldCs) // Overwrite the old settings with the new ones.
+	}
+
+	return cs, true
+}
+
 // Get returns the client settings.
 func (csp *ClientSettingsProvider) Get(group string) (map[string]interface{}, bool) {
 	csp.rwMutex.RLock()
 	defer csp.rwMutex.RUnlock()
 
-	cs, ok := csp.cachedGroupSettings[group]
-	if ok {
-		if depends, ok := csp.cachedGroupDepends[group]; ok {
-			oldCs := cs
-			cs = make(map[string]interface{})
-
-			for _, depend := range depends {
-				if dependSettings, ok := csp.cachedGroupSettings[depend]; ok {
-					cs = mergeMaps(cs, dependSettings)
-				}
-			}
-
-			cs = mergeMaps(cs, oldCs) // Overwrite the old settings with the new ones.
-		}
-	}
+	cs, ok := csp.resolveWithDependencies(group)
 
 	return cs, ok
 }

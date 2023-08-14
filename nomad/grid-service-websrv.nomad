@@ -21,32 +21,31 @@ job "grid-service-websrv" {
 
   # RBX Proxy nodes
   group "grid-service-websrv" {
-    count = 5
+    count = 3
+
+    network {
+      mode = "host"
+
+      port "http" {}
+    }
 
     task "server" {
       driver = "docker"
 
-      env {
-        BIND_ADDRESS_IPV4  = "0.0.0.0"
-        ENABLE_TLS_SERVER  = "false"
-        INSECURE_PORT      = "${NOMAD_PORT_http}"
-        DISABLE_IPV6       = "true"
-        MFDLABS_ARC_SERVER = "true"
-      }
-
       config {
-        image = "mfdlabs/grid-service-websrv:latest"
-      }
-
-      resources {
-        network {
-          port "http" {}
-        }
+        image        = "mfdlabs/grid-service-websrv:latest"
+        network_mode = "host"
+        ports        = ["http"]
       }
 
       template {
-        data = <<EOF
+        data        = <<EOF
 BIND_ADDRESS_IPv4 = ":{{ env "NOMAD_PORT_http" }}"
+
+{{ range service "vault" }}
+VAULT_ADDR = "http://{{ .Address }}:8200"
+{{ end }}
+
 {{ with secret "kv-migration/grid-service-websrv" }}
 
 {{ if .Data.data }}
@@ -57,9 +56,12 @@ BIND_ADDRESS_IPv4 = ":{{ env "NOMAD_PORT_http" }}"
 
 {{ end }}
 EOF
+        destination = "secrets/grid-service-websrv.env"
+        env         = true
+      }
 
       service {
-        name = "rbx-proxy"
+        name = "grid-service-websrv"
         port = "http"
 
         tags = [
@@ -74,7 +76,7 @@ EOF
 
         check {
           type     = "http"
-          path     = "/_lb/_/health"
+          path     = "/metrics"
           interval = "2s"
           timeout  = "2s"
         }
