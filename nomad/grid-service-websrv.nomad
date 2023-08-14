@@ -76,7 +76,7 @@ EOF
 
         check {
           type     = "http"
-          path     = "/_lb/_/health"
+          path     = "/metrics"
           interval = "2s"
           timeout  = "2s"
         }
