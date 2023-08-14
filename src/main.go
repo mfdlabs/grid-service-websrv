@@ -9,6 +9,7 @@ import (
 	"github.com/golang/glog"
 
 	"github.com/mfdlabs/grid-service-websrv/flags"
+	"github.com/mfdlabs/grid-service-websrv/http"
 )
 
 var applicationName string
@@ -29,6 +30,8 @@ func main() {
 
 		return
 	}
+
+	go http.Start()
 
 	// Wait for a signal to quit
 	s := make(chan os.Signal, 1)
