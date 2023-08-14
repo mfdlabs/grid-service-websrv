@@ -153,7 +153,7 @@ else
 ifndef PROJECT_NAME
 	$(info PROJECT_NAME is not defined)
 else
-	@docker build --build-arg PROJECT_NAME=$(PROJECT_NAME) -t $(IMAGE_NAME):$(IMAGE_TAG) -f Dockerfile .
+	@docker build --build-arg PROJECT_NAME=$(PROJECT_NAME) --build-arg COMPANY_NAME=$(COMPANY_NAME) -t $(IMAGE_NAME):$(IMAGE_TAG) -f Dockerfile .
 	@docker tag $(IMAGE_NAME):$(IMAGE_TAG) $(IMAGE_NAME):latest
 
 ifdef CI
