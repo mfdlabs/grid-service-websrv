@@ -41,11 +41,11 @@ jobs:
     # If DOCKER_REGISTRY is not set, default to docker.io
     env:
       DOCKER_REGISTRY: ${{ github.event.inputs.registry || secrets.DOCKER_REGISTRY || 'docker.io' }}
-      IMAGE_NAME: ${{ github.event.inputs.image || secrets.IMAGE_NAME || 'mfdlabs/s3-forcer' }}
+      IMAGE_NAME: ${{ github.event.inputs.image || secrets.IMAGE_NAME || 'mfdlabs/grid-service-websrv' }}
       DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
       DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
       COMPANY_NAME: ${{ github.events.inputs.company || 'mfdlabs' }}
-      PROJECT_NAME: ${{ github.events.inputs.project || 's3-forcer' }}
+      PROJECT_NAME: ${{ github.events.inputs.project || 'grid-service-websrv' }}
 
     # Pushes 2 identical images to the registry, one with the tag latest and one with the version from git-ref
     steps:
