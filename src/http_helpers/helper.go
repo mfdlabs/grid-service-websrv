@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"strconv"
 )
 
 // WriteJSON writes a JSON response.
@@ -48,4 +49,14 @@ func ReadJSON(w http.ResponseWriter, r *http.Request, v interface{}) bool {
 		return false
 	}
 	return true
+}
+
+// ParseInt64FromQuery parses an int64 from a query.
+func ParseInt64FromQuery(r *http.Request, key string) (int64, error) {
+	return ParseInt64(r.URL.Query().Get(key))
+}
+
+// ParseInt64 parses an int64.
+func ParseInt64(str string) (int64, error) {
+	return strconv.ParseInt(str, 10, 64)
 }

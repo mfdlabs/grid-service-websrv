@@ -10,6 +10,7 @@ import (
 
 	"github.com/mfdlabs/grid-service-websrv/flags"
 	"github.com/mfdlabs/grid-service-websrv/http"
+	"github.com/mfdlabs/grid-service-websrv/routes/ephemeralcounters"
 )
 
 var applicationName string
@@ -42,6 +43,8 @@ func main() {
 		sig := <-s
 
 		glog.Warningf("Received signal %s, exiting\n", sig)
+
+		ephemeralcounters.CloseWriteAPI()
 
 		os.Exit(0)
 	}()

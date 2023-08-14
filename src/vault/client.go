@@ -45,7 +45,7 @@ func initializeLdapAuth(username, password string) (*ldap.LDAPAuth, error) {
 	)
 }
 
-func newVaultClient(ctx context.Context, address string, authType VaultAuthenticationType, credential string) error {
+func newVaultClient(ctx context.Context, address string, authType vaultAuthenticationType, credential string) error {
 	var err error = nil
 
 	createOnce.Do(func() {
@@ -66,9 +66,9 @@ func newVaultClient(ctx context.Context, address string, authType VaultAuthentic
 		}
 
 		switch authType {
-		case Token:
+		case vaultAuthenticationTypeToken:
 			globalClient.Client.SetToken(credential)
-		case AppRole:
+		case vaultAuthenticationTypeAppRole:
 			split := strings.Split(credential, ":")
 
 			if len(split) != 2 {
@@ -87,7 +87,7 @@ func newVaultClient(ctx context.Context, address string, authType VaultAuthentic
 			}
 
 			_, err = globalClient.Client.Auth().Login(ctx, approleAuth)
-		case LDAP:
+		case vaultAuthenticationTypeLDAP:
 			split := strings.Split(credential, ":")
 
 			if len(split) != 2 {
@@ -107,7 +107,7 @@ func newVaultClient(ctx context.Context, address string, authType VaultAuthentic
 
 			_, err = globalClient.Client.Auth().Login(ctx, ldapAuth)
 		default:
-			err = fmt.Errorf("unknown vault authentication type %s", authType.String())
+			err = fmt.Errorf("unknown vault authentication type %s", authType.string())
 			return
 		}
 
@@ -148,7 +148,7 @@ func GetGlobalVaultClient(ctx context.Context) (*VaultClient, error) {
 		return nil, errors.New("cannot setup vault client because vault credential is empty")
 	}
 
-	authType, err := ToVaultAuthenticationType(*flags.VaultAuthenticationType)
+	authType, err := toVaultAuthenticationType(*flags.VaultAuthenticationType)
 	if err != nil {
 		return nil, err
 	}

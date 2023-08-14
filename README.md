@@ -1,9 +1,5 @@
-# NS1 Changes.
-This repository is aimed at tracking NS1 DNS changes with readable DNS Zone files.
-
-# Branches
-* `master`: The main branch, this isn't used for anything other than this readme and the changelog.
-* `{shortHandName}`: This is the branch that is used for tracking changes for a specific NS1 API, please see ns1-github-comparator.nomad for a nomad job template.
+# Grid Service Web Server
+This repository contains the source code for the Grid Service Web Server used by the Grid Bot
 
 # Contributing
 This repository is open source, please feel free to open a pull request.

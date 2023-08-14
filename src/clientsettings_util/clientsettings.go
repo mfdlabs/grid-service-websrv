@@ -2,6 +2,7 @@ package clientsettingsutil
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"regexp"
 	"strconv"
@@ -151,6 +152,11 @@ func (csp *ClientSettingsProvider) Import(group string, data map[string]interfac
 	return nil
 }
 
+// Refresh refreshes the client settings from Vault.
+func (csp *ClientSettingsProvider) Refresh() error {
+	return csp.doRefresh()
+}
+
 func parseData(data, metadata map[string]interface{}) map[string]interface{} {
 	// rbx-client-settings are like this:
 	// FFlag is a bool
@@ -282,33 +288,32 @@ func (csp *ClientSettingsProvider) getSettingsForGroupAndCache(group string) map
 
 func (csp *ClientSettingsProvider) updateThread(refreshInterval int) {
 	for {
-		csp.rwMutex.Lock()
-
-		csp.currentRefreshedGroups = make(map[string]bool)
-
-		groups, err := csp.vaultClient.Logical().List(csp.mountPath + "/metadata/" + csp.path)
-		if err != nil {
-			glog.Warningf("Skipping update: %s", err.Error())
-
-			goto SLEEP
+		if err := csp.doRefresh(); err != nil {
+			glog.Errorf("Failed to refresh settings: %s", err.Error())
 		}
-
-		if groups == nil || groups.Data == nil {
-			glog.Warningf("Skipping update: no groups found")
-
-			goto SLEEP
-		}
-
-		for _, group := range groups.Data["keys"].([]interface{}) {
-			glog.Infof("Updating group %s", group.(string))
-
-			csp.getSettingsForGroupAndCache(group.(string))
-		}
-
-	SLEEP:
-
-		csp.rwMutex.Unlock()
 
 		time.Sleep(time.Duration(refreshInterval) * time.Second)
 	}
+}
+
+func (csp *ClientSettingsProvider) doRefresh() error {
+	csp.rwMutex.Lock()
+	defer csp.rwMutex.Unlock()
+
+	csp.currentRefreshedGroups = make(map[string]bool)
+
+	groups, err := csp.vaultClient.Logical().List(csp.mountPath + "/metadata/" + csp.path)
+	if err != nil {
+		return err
+	}
+
+	if groups == nil || groups.Data == nil {
+		return errors.New("no groups found")
+	}
+
+	for _, group := range groups.Data["keys"].([]interface{}) {
+		csp.getSettingsForGroupAndCache(group.(string))
+	}
+
+	return nil
 }

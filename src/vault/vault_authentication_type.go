@@ -5,34 +5,34 @@ import (
 	"strings"
 )
 
-type VaultAuthenticationType int
+type vaultAuthenticationType int
 
 const (
-	Token VaultAuthenticationType = iota
-	AppRole
-	LDAP
+	vaultAuthenticationTypeToken vaultAuthenticationType = iota
+	vaultAuthenticationTypeAppRole
+	vaultAuthenticationTypeLDAP
 )
 
-func ToVaultAuthenticationType(s string) (VaultAuthenticationType, error) {
+func toVaultAuthenticationType(s string) (vaultAuthenticationType, error) {
 	switch strings.ToLower(s) {
 	case "token":
-		return Token, nil
+		return vaultAuthenticationTypeToken, nil
 	case "approle":
-		return AppRole, nil
+		return vaultAuthenticationTypeAppRole, nil
 	case "ldap":
-		return LDAP, nil
+		return vaultAuthenticationTypeLDAP, nil
 	default:
-		return Token, fmt.Errorf("unknown VaultAuthenticationType %s", s)
+		return vaultAuthenticationTypeToken, fmt.Errorf("unknown VaultAuthenticationType %s", s)
 	}
 }
 
-func (v VaultAuthenticationType) String() string {
+func (v vaultAuthenticationType) string() string {
 	switch v {
-	case Token:
+	case vaultAuthenticationTypeToken:
 		return "Token"
-	case AppRole:
+	case vaultAuthenticationTypeAppRole:
 		return "AppRole"
-	case LDAP:
+	case vaultAuthenticationTypeLDAP:
 		return "LDAP"
 	default:
 		return "Unknown"

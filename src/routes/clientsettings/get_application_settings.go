@@ -6,10 +6,6 @@ import (
 	httphelpers "github.com/mfdlabs/grid-service-websrv/http_helpers"
 )
 
-type getApplicationSettingsResponse struct {
-	ApplicationSettings map[string]interface{} `json:"applicationSettings"`
-}
-
 func getApplicationSettings(w http.ResponseWriter, r *http.Request) {
 	applicationName := r.URL.Query().Get("applicationName")
 	if applicationName == "" {

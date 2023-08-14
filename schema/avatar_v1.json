@@ -1,0 +1,158 @@
+{
+	"swagger": "2.0",
+	"info": {
+		"version": "v1",
+		"title": "Avatar Api v1"
+	},
+	"host": "avatar.roblox.com",
+	"schemes": ["https"],
+	"paths": {
+		"/v1/avatar-fetch": {
+			"get": {
+				"tags": ["Avatar"],
+				"summary": "This endpoint returns a bunch of data used by client to create the avatar in game.  \r\nIt's a replacement for Avatar-fetch v1.1\r\nThe difference from AvatarFetch is that we take the avatar's scaling (not the universe's) and we return\r\na collection of asset type and asset ids instead of asset version ids",
+				"consumes": [],
+				"produces": ["application/json", "text/json"],
+				"parameters": [
+					{
+						"name": "placeId",
+						"in": "query",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					},
+					{
+						"name": "userId",
+						"in": "query",
+						"required": true,
+						"type": "integer",
+						"format": "int64"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/Roblox.Api.Avatar.Models.AvatarFetchModel"
+						}
+					}
+				}
+			}
+		}
+	},
+	"definitions": {
+		"Roblox.Web.Responses.Avatar.ScaleModel": {
+			"type": "object",
+			"properties": {
+				"height": {
+					"format": "double",
+					"type": "number"
+				},
+				"width": {
+					"format": "double",
+					"type": "number"
+				},
+				"head": {
+					"format": "double",
+					"type": "number"
+				},
+				"depth": {
+					"format": "double",
+					"type": "number"
+				},
+				"proportion": {
+					"format": "double",
+					"type": "number"
+				},
+				"bodyType": {
+					"format": "double",
+					"type": "number"
+				}
+			}
+		},
+		"Roblox.Api.Avatar.Models.BodyColorsModel": {
+			"description": "A model container BrickColor ids for each body part.",
+			"type": "object",
+			"properties": {
+				"headColorId": {
+					"format": "int32",
+					"type": "integer"
+				},
+				"torsoColorId": {
+					"format": "int32",
+					"type": "integer"
+				},
+				"rightArmColorId": {
+					"format": "int32",
+					"type": "integer"
+				},
+				"leftArmColorId": {
+					"format": "int32",
+					"type": "integer"
+				},
+				"rightLegColorId": {
+					"format": "int32",
+					"type": "integer"
+				},
+				"leftLegColorId": {
+					"format": "int32",
+					"type": "integer"
+				}
+			}
+		},
+		"Roblox.Api.Avatar.Models.AvatarFetchModel": {
+			"type": "object",
+			"properties": {
+				"resolvedAvatarType": {
+					"type": "string"
+				},
+				"equippedGearVersionIds": {
+					"type": "array",
+					"items": {
+						"format": "int64",
+						"type": "integer"
+					}
+				},
+				"backpackGearVersionIds": {
+					"type": "array",
+					"items": {
+						"format": "int64",
+						"type": "integer"
+					}
+				},
+				"assetAndAssetTypeIds": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Roblox.Api.Avatar.Models.AssetIdAndTypeModel"
+					}
+				},
+				"animationAssetIds": {
+					"type": "object",
+					"additionalProperties": {
+						"format": "int64",
+						"type": "integer"
+					}
+				},
+				"bodyColors": {
+					"$ref": "#/definitions/Roblox.Api.Avatar.Models.BodyColorsModel"
+				},
+				"scales": {
+					"$ref": "#/definitions/Roblox.Web.Responses.Avatar.ScaleModel"
+				}
+			}
+		},
+		"Roblox.Api.Avatar.Models.AssetIdAndTypeModel": {
+			"type": "object",
+			"properties": {
+				"assetId": {
+					"format": "int64",
+					"type": "integer"
+				},
+				"assetTypeId": {
+					"format": "int64",
+					"type": "integer"
+				}
+			}
+		}
+	}
+}
