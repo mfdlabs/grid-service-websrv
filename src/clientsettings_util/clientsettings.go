@@ -259,7 +259,8 @@ func (csp *ClientSettingsProvider) getSettingsForGroupAndCache(group string) map
 	if metadata != nil {
 		// Check for $ref
 		if ref, ok := metadata.CustomMetadata["$ref"]; ok {
-			csp.cachedGroupSettings[group] = csp.getSettingsForGroupAndCache(ref.(string))
+			csp.getSettingsForGroupAndCache(ref.(string))
+			csp.cachedGroupSettings[group], _ = csp.resolveWithDependencies(ref.(string))
 			csp.currentRefreshedGroups[group] = true
 
 			return csp.cachedGroupSettings[group]

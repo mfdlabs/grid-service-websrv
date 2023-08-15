@@ -32,8 +32,8 @@ func RegisterRoutes(r *mux.Router) {
 			*flags.ClientSettingsProviderRefreshInterval,
 		)
 
-		r.HandleFunc("/v1/settings/application", getApplicationSettings).Methods("GET")
-		r.HandleFunc("/v1/settings/application", importApplicationSettings).Methods("POST")
-		r.HandleFunc("/v1/settings", refreshAllApplicationSettings).Methods("POST")
+		r.HandleFunc("/v1/settings/{route:application\\/?}", getApplicationSettings).Methods("GET")
+		r.HandleFunc("/v1/settings/{route:application\\/?}", importApplicationSettings).Methods("POST")
+		r.HandleFunc("/v1/{route:settings\\/?}", refreshAllApplicationSettings).Methods("POST")
 	})
 }

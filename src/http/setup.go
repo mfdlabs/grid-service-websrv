@@ -19,7 +19,7 @@ import (
 func Start() {
 	r := mux.NewRouter()
 
-	registerRoutes(r)
+	r.Use(middleware.CaseInsensitiveMiddleware)
 
 	// Add middleware
 	r.Use(middleware.LoggingMiddleware)
@@ -29,6 +29,8 @@ func Start() {
 
 	r.Use(metrics.HttpServerConcurrentRequestsMiddleware)
 	r.Use(metrics.HttpServerRequestCountMiddleware)
+
+	registerRoutes(r)
 
 	// Start the server
 	srv := &http.Server{

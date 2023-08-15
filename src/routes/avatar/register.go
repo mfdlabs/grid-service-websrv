@@ -23,6 +23,6 @@ func RegisterRoutes(r *mux.Router) {
 		avatarApiClient = avatarv1.NewAPIClient(avatarv1.NewConfiguration(*flags.AvatarApiUrl))
 		localCache = cache.NewLocalCache(*flags.AvatarFetchCacheInvalidationInterval)
 
-		r.HandleFunc("/v1/avatar-fetch", getAvatarFetch).Methods("GET")
+		r.HandleFunc("/v1/{route:avatar-fetch\\/?}", getAvatarFetch).Methods("GET")
 	})
 }
