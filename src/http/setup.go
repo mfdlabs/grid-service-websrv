@@ -19,8 +19,6 @@ import (
 func Start() {
 	r := mux.NewRouter()
 
-	r.Use(middleware.CaseInsensitiveMiddleware)
-
 	// Add middleware
 	r.Use(middleware.LoggingMiddleware)
 	r.Use(middleware.RecoveryMiddleware)
