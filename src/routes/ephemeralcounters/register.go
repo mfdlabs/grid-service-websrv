@@ -29,8 +29,8 @@ func RegisterRoutes(r *mux.Router) {
 			writeAPI = client.WriteAPI(*flags.EphemeralCountersInfluxDbReportingOrganization, *flags.EphemeralCountersInfluxDbReportingDatabase)
 		}
 
-		r.HandleFunc("/v1.0/SequenceStatistics/BatchAddToSequencesV2", batchAddToSequencesV2).Methods("POST")
-		r.HandleFunc("/v1.1/Counters/BatchIncrement", batchIncrement).Methods("POST")
+		r.HandleFunc("/v1.0/SequenceStatistics/{route:BatchAddToSequencesV2\\/?}", batchAddToSequencesV2).Methods("POST")
+		r.HandleFunc("/v1.1/Counters/{route:BatchIncrement\\/?}", batchIncrement).Methods("POST")
 	})
 }
 

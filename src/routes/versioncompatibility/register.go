@@ -12,7 +12,7 @@ var registerOnce sync.Once
 // RegisterRoutes registers the version compatibility routes.
 func RegisterRoutes(r *mux.Router) {
 	registerOnce.Do(func() {
-		r.HandleFunc("GetAllowedMD5Hashes", routes.StubEmpty).Methods("GET")
-		r.HandleFunc("GetAllowedVersions", routes.StubEmpty).Methods("GET")
+		r.HandleFunc("/{route:GetAllowedMD5Hashes\\/?}", routes.StubEmpty).Methods("GET")
+		r.HandleFunc("/{route:GetAllowedVersions\\/?}", routes.StubEmpty).Methods("GET")
 	})
 }
