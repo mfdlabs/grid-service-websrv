@@ -24,15 +24,30 @@ func importApplicationSettings(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err := clientSettingsProvider.Import(
-		request.ApplicationName,
-		request.ApplicationSettings,
-		request.Dependendies,
-	)
-	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		httphelpers.WriteRobloxJSONErr(w, err)
-		return
+	isAllowedFromClientSettingsService := true
+	if request.IsAllowedFromClientSettingsService != nil {
+		isAllowedFromClientSettingsService = *request.IsAllowedFromClientSettingsService
+	}
+
+	if request.Reference != nil {
+		err := clientSettingsProvider.ImportReference(request.ApplicationName, *request.Reference, isAllowedFromClientSettingsService)
+		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			httphelpers.WriteRobloxJSONErr(w, err)
+			return
+		}
+	} else {
+		err := clientSettingsProvider.Import(
+			request.ApplicationName,
+			request.ApplicationSettings,
+			request.Dependendies,
+			isAllowedFromClientSettingsService,
+		)
+		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			httphelpers.WriteRobloxJSONErr(w, err)
+			return
+		}
 	}
 
 	w.WriteHeader(http.StatusNoContent)
