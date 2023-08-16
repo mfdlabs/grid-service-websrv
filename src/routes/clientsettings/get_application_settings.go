@@ -14,14 +14,14 @@ func getApplicationSettings(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	applicationSettings, ok := clientSettingsProvider.Get(applicationName)
+	applicationSettings, ok := clientSettingsProvider.GetGroup(applicationName)
 	if !ok {
 		w.WriteHeader(http.StatusBadRequest)
 		httphelpers.WriteRobloxJSONError(w, "The application name is invalid.")
 		return
 	}
 
-	response := getApplicationSettingsResponse{
+	response := &getApplicationSettingsResponse{
 		ApplicationSettings: applicationSettings,
 	}
 

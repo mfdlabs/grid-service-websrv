@@ -2,6 +2,7 @@ package clientsettingsutil
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"regexp"
@@ -18,9 +19,10 @@ import (
 type ClientSettingsProvider struct {
 	rwMutex *sync.RWMutex
 
-	cachedGroupSettings    map[string]map[string]interface{}
-	cachedGroupDepends     map[string][]string
-	currentRefreshedGroups map[string]bool
+	cachedGroupSettings                    map[string]map[string]interface{}
+	cachedGroupDepends                     map[string][]string
+	currentRefreshedGroups                 map[string]bool
+	allowedGroupsFromClientSettingsService map[string]bool
 
 	vaultClient *api.Client
 	mountPath   string
@@ -30,12 +32,14 @@ type ClientSettingsProvider struct {
 // NewClientSettingsProvider creates a new ClientSettingsProvider.
 func NewClientSettingsProvider(vaultClient *api.Client, mountPath, path string, refreshInterval int) *ClientSettingsProvider {
 	csp := &ClientSettingsProvider{
-		rwMutex:             &sync.RWMutex{},
-		cachedGroupSettings: make(map[string]map[string]interface{}),
-		cachedGroupDepends:  make(map[string][]string),
-		vaultClient:         vaultClient,
-		mountPath:           mountPath,
-		path:                path,
+		rwMutex:                                &sync.RWMutex{},
+		cachedGroupSettings:                    make(map[string]map[string]interface{}),
+		cachedGroupDepends:                     make(map[string][]string),
+		currentRefreshedGroups:                 make(map[string]bool),
+		allowedGroupsFromClientSettingsService: make(map[string]bool),
+		vaultClient:                            vaultClient,
+		mountPath:                              mountPath,
+		path:                                   path,
 	}
 
 	go csp.updateThread(refreshInterval)
@@ -76,26 +80,59 @@ func (csp *ClientSettingsProvider) resolveWithDependencies(group string) (map[st
 	return cs, true
 }
 
-// Get returns the client settings.
-func (csp *ClientSettingsProvider) Get(group string) (map[string]interface{}, bool) {
+// GetGroup returns the client settings.
+func (csp *ClientSettingsProvider) GetGroup(group string) (map[string]interface{}, bool) {
 	csp.rwMutex.RLock()
 	defer csp.rwMutex.RUnlock()
+
+	allowedFromClientSettingsService := csp.allowedGroupsFromClientSettingsService[group]
+	if !allowedFromClientSettingsService {
+		return nil, false
+	}
 
 	cs, ok := csp.resolveWithDependencies(group)
 
 	return cs, ok
 }
 
-// Set sets the client settings.
-func (csp *ClientSettingsProvider) Set(group, name string, value interface{}) {
-	csp.rwMutex.Lock()
-	defer csp.rwMutex.Unlock()
+// Get returns a client setting.
+func (csp *ClientSettingsProvider) Get(group, name string) (interface{}, bool) {
+	csp.rwMutex.RLock()
+	defer csp.rwMutex.RUnlock()
 
-	csp.cachedGroupSettings[group][name] = value
+	cs, ok := csp.resolveWithDependencies(group)
+	if !ok {
+		return nil, false
+	}
+
+	value, ok := cs[name]
+	return value, ok
+}
+
+// Set sets the client settings.
+func (csp *ClientSettingsProvider) Set(group, name string, value interface{}) (bool, error) {
+	csp.rwMutex.Lock()
+
+	existsingCachedGroupSettings, ok := csp.cachedGroupSettings[group]
+	if !ok {
+		existsingCachedGroupSettings = make(map[string]interface{})
+		csp.allowedGroupsFromClientSettingsService[group] = true
+	} else {
+		if existsingCachedGroupSettings[name] == value {
+			csp.rwMutex.Unlock()
+			return false, nil
+		}
+	}
+
+	existsingCachedGroupSettings[name] = value
+
+	csp.rwMutex.Unlock()
+
+	return true, csp.Import(group, existsingCachedGroupSettings, csp.cachedGroupDepends[group], csp.allowedGroupsFromClientSettingsService[group])
 }
 
 // Import imports the client settings to Vault.
-func (csp *ClientSettingsProvider) Import(group string, data map[string]interface{}, depends []string) error {
+func (csp *ClientSettingsProvider) Import(group string, data map[string]interface{}, depends []string, isAllowedFromClientSettingsService bool) error {
 	csp.rwMutex.Lock()
 	defer csp.rwMutex.Unlock()
 
@@ -112,7 +149,7 @@ func (csp *ClientSettingsProvider) Import(group string, data map[string]interfac
 			switch value.(type) {
 			case bool:
 				metadata[key] = "bool"
-			case float64:
+			case int32, int64, uint32, uint64, float32, float64, int, uint, json.Number:
 				metadata[key] = "int"
 			}
 		}
@@ -120,8 +157,24 @@ func (csp *ClientSettingsProvider) Import(group string, data map[string]interfac
 		switch v := value.(type) {
 		case bool:
 			vaultData[key] = strconv.FormatBool(v)
+		case int:
+			vaultData[key] = strconv.FormatInt(int64(v), 10)
+		case int32:
+			vaultData[key] = strconv.FormatInt(int64(v), 10)
+		case int64:
+			vaultData[key] = strconv.FormatInt(v, 10)
+		case uint:
+			vaultData[key] = strconv.FormatUint(uint64(v), 10)
+		case uint32:
+			vaultData[key] = strconv.FormatUint(uint64(v), 10)
+		case uint64:
+			vaultData[key] = strconv.FormatUint(v, 10)
+		case float32:
+			vaultData[key] = strconv.FormatFloat(float64(v), 'f', -1, 32)
 		case float64:
 			vaultData[key] = strconv.FormatFloat(v, 'f', -1, 64)
+		case json.Number:
+			vaultData[key] = v.String()
 		default:
 			vaultData[key] = v
 		}
@@ -137,6 +190,8 @@ func (csp *ClientSettingsProvider) Import(group string, data map[string]interfac
 		csp.cachedGroupDepends[group] = depends
 		metadata["$dependencies"] = strings.Join(depends, ",")
 	}
+
+	metadata["$allowed"] = strconv.FormatBool(isAllowedFromClientSettingsService)
 
 	_, err := csp.vaultClient.KVv2(csp.mountPath).Put(
 		context.Background(),
@@ -159,6 +214,39 @@ func (csp *ClientSettingsProvider) Import(group string, data map[string]interfac
 	}
 
 	csp.cachedGroupSettings[group] = data
+
+	return nil
+}
+
+// ImportReference imports the client settings to Vault.
+func (csp *ClientSettingsProvider) ImportReference(group, reference string, isAllowedFromClientSettingsService bool) error {
+	csp.rwMutex.Lock()
+	defer csp.rwMutex.Unlock()
+
+	_, err := csp.vaultClient.KVv2(csp.mountPath).Put(
+		context.Background(),
+		csp.path+"/"+group,
+		map[string]interface{}{},
+	)
+	if err != nil {
+		return err
+	}
+
+	err = csp.vaultClient.KVv2(csp.mountPath).PutMetadata(
+		context.Background(),
+		csp.path+"/"+group,
+		api.KVMetadataPutInput{
+			CustomMetadata: map[string]interface{}{
+				"$ref":     reference,
+				"$allowed": strconv.FormatBool(isAllowedFromClientSettingsService),
+			},
+		},
+	)
+	if err != nil {
+		return err
+	}
+
+	csp.allowedGroupsFromClientSettingsService[group] = isAllowedFromClientSettingsService
 
 	return nil
 }
@@ -257,6 +345,17 @@ func (csp *ClientSettingsProvider) getSettingsForGroupAndCache(group string) map
 	}
 
 	if metadata != nil {
+		// Check if allowed from client setting service
+		if allowed, ok := metadata.CustomMetadata["$allowed"]; ok {
+			if allowed.(string) != "true" {
+				csp.allowedGroupsFromClientSettingsService[group] = false
+			} else {
+				csp.allowedGroupsFromClientSettingsService[group] = true
+			}
+		} else {
+			csp.allowedGroupsFromClientSettingsService[group] = true
+		}
+
 		// Check for $ref
 		if ref, ok := metadata.CustomMetadata["$ref"]; ok {
 			csp.getSettingsForGroupAndCache(ref.(string))
@@ -283,6 +382,8 @@ func (csp *ClientSettingsProvider) getSettingsForGroupAndCache(group string) map
 
 			csp.cachedGroupDepends[group] = depends
 		}
+	} else {
+		csp.allowedGroupsFromClientSettingsService[group] = true
 	}
 
 	secret, err := csp.vaultClient.KVv2(csp.mountPath).Get(context.Background(), csp.path+"/"+group)
