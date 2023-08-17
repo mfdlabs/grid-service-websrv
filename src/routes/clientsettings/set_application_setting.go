@@ -54,5 +54,6 @@ func setApplicationSetting(w http.ResponseWriter, r *http.Request) {
 		Value: request.Value,
 	}
 
+	w.WriteHeader(http.StatusOK)
 	httphelpers.WriteJSON(w, response)
 }
