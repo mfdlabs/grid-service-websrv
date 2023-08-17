@@ -182,6 +182,8 @@ func (csp *ClientSettingsProvider) Import(group string, data map[string]interfac
 
 	if len(depends) > 0 {
 		for _, depend := range depends {
+			depend = strings.TrimSpace(depend)
+
 			if _, ok := csp.cachedGroupSettings[depend]; !ok {
 				return fmt.Errorf("unknown dependency %s", depend)
 			}
@@ -371,6 +373,8 @@ func (csp *ClientSettingsProvider) getSettingsForGroupAndCache(group string) map
 			depends := make([]string, 0)
 
 			for _, dependency := range split {
+				dependency = strings.TrimSpace(dependency)
+
 				if dependency == "" {
 					continue
 				}
