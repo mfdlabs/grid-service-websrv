@@ -413,6 +413,26 @@ func (csp *ClientSettingsProvider) updateThread(refreshInterval int) {
 	}
 }
 
+func stringInSlice(a string, list []string) bool {
+	for _, b := range list {
+		if strings.EqualFold(b, a) {
+			return true
+		}
+	}
+
+	return false
+}
+
+func (csp *ClientSettingsProvider) checkForDeletedGroups(vaultGroups []string) {
+	for group := range csp.cachedGroupSettings {
+		if !stringInSlice(group, vaultGroups) {
+			delete(csp.cachedGroupSettings, group)
+			delete(csp.cachedGroupDepends, group)
+			delete(csp.allowedGroupsFromClientSettingsService, group)
+		}
+	}
+}
+
 func (csp *ClientSettingsProvider) doRefresh() error {
 	csp.rwMutex.Lock()
 	defer csp.rwMutex.Unlock()
@@ -428,9 +448,13 @@ func (csp *ClientSettingsProvider) doRefresh() error {
 		return errors.New("no groups found")
 	}
 
+	stringGroups := make([]string, len(groups.Data["keys"].([]interface{})))
 	for _, group := range groups.Data["keys"].([]interface{}) {
 		csp.getSettingsForGroupAndCache(group.(string))
+		stringGroups = append(stringGroups, group.(string))
 	}
+
+	csp.checkForDeletedGroups(stringGroups)
 
 	return nil
 }
