@@ -5,9 +5,9 @@ go 1.20
 require (
 	github.com/golang/glog v1.1.2
 	github.com/gorilla/mux v1.8.1
-	github.com/hashicorp/vault/api v1.9.2
+	github.com/hashicorp/vault/api v1.10.0
 	github.com/hashicorp/vault/api/auth/approle v0.4.1
-	github.com/hashicorp/vault/api/auth/ldap v0.4.1
+	github.com/hashicorp/vault/api/auth/ldap v0.5.0
 	github.com/influxdata/influxdb-client-go/v2 v2.12.4
 	github.com/prometheus/client_golang v1.17.0
 )
