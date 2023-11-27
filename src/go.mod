@@ -3,7 +3,7 @@ module github.com/mfdlabs/grid-service-websrv
 go 1.20
 
 require (
-	github.com/golang/glog v1.1.2
+	github.com/golang/glog v1.2.0
 	github.com/gorilla/mux v1.8.1
 	github.com/hashicorp/vault/api v1.10.0
 	github.com/hashicorp/vault/api/auth/approle v0.5.0
