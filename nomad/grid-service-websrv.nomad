@@ -69,7 +69,7 @@ EOF
           "traefik.tags=http",
           "traefik.frontend.entryPoints=http,https",
           "traefik.frontend.passHostHeader=true",
-          "traefik.frontend.rule=HostRegexp:(avatar|clientsettingscdn).sitetest4.robloxlabs.com,(ephemeralcounters|versioncompatibility).api.sitetest4.robloxlabs.com",
+          "traefik.frontend.rule=HostRegexp:{host:(.+)}.sitetest4.robloxlabs.com,{host:(.+)}.api.sitetest4.robloxlabs.com",
           "traefik.backend.loadbalancer.method=wrr",
           "traefik.backend.buffering.retryExpression=IsNetworkError() && Attempts() <= 2"
         ]

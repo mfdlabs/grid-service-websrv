@@ -12,10 +12,12 @@ package avatarv1
 
 import (
 	"encoding/json"
+
+	httpclients "github.com/mfdlabs/grid-service-websrv/http_clients"
 )
 
 // checks if the RobloxWebResponsesAvatarScaleModel type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &RobloxWebResponsesAvatarScaleModel{}
+var _ httpclients.MappedNullable = &RobloxWebResponsesAvatarScaleModel{}
 
 // RobloxWebResponsesAvatarScaleModel struct for RobloxWebResponsesAvatarScaleModel
 type RobloxWebResponsesAvatarScaleModel struct {
@@ -46,7 +48,7 @@ func NewRobloxWebResponsesAvatarScaleModelWithDefaults() *RobloxWebResponsesAvat
 
 // GetHeight returns the Height field value if set, zero value otherwise.
 func (o *RobloxWebResponsesAvatarScaleModel) GetHeight() float64 {
-	if o == nil || IsNil(o.Height) {
+	if o == nil || httpclients.IsNil(o.Height) {
 		var ret float64
 		return ret
 	}
@@ -56,7 +58,7 @@ func (o *RobloxWebResponsesAvatarScaleModel) GetHeight() float64 {
 // GetHeightOk returns a tuple with the Height field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RobloxWebResponsesAvatarScaleModel) GetHeightOk() (*float64, bool) {
-	if o == nil || IsNil(o.Height) {
+	if o == nil || httpclients.IsNil(o.Height) {
 		return nil, false
 	}
 	return o.Height, true
@@ -64,7 +66,7 @@ func (o *RobloxWebResponsesAvatarScaleModel) GetHeightOk() (*float64, bool) {
 
 // HasHeight returns a boolean if a field has been set.
 func (o *RobloxWebResponsesAvatarScaleModel) HasHeight() bool {
-	if o != nil && !IsNil(o.Height) {
+	if o != nil && !httpclients.IsNil(o.Height) {
 		return true
 	}
 
@@ -78,7 +80,7 @@ func (o *RobloxWebResponsesAvatarScaleModel) SetHeight(v float64) {
 
 // GetWidth returns the Width field value if set, zero value otherwise.
 func (o *RobloxWebResponsesAvatarScaleModel) GetWidth() float64 {
-	if o == nil || IsNil(o.Width) {
+	if o == nil || httpclients.IsNil(o.Width) {
 		var ret float64
 		return ret
 	}
@@ -88,7 +90,7 @@ func (o *RobloxWebResponsesAvatarScaleModel) GetWidth() float64 {
 // GetWidthOk returns a tuple with the Width field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RobloxWebResponsesAvatarScaleModel) GetWidthOk() (*float64, bool) {
-	if o == nil || IsNil(o.Width) {
+	if o == nil || httpclients.IsNil(o.Width) {
 		return nil, false
 	}
 	return o.Width, true
@@ -96,7 +98,7 @@ func (o *RobloxWebResponsesAvatarScaleModel) GetWidthOk() (*float64, bool) {
 
 // HasWidth returns a boolean if a field has been set.
 func (o *RobloxWebResponsesAvatarScaleModel) HasWidth() bool {
-	if o != nil && !IsNil(o.Width) {
+	if o != nil && !httpclients.IsNil(o.Width) {
 		return true
 	}
 
@@ -110,7 +112,7 @@ func (o *RobloxWebResponsesAvatarScaleModel) SetWidth(v float64) {
 
 // GetHead returns the Head field value if set, zero value otherwise.
 func (o *RobloxWebResponsesAvatarScaleModel) GetHead() float64 {
-	if o == nil || IsNil(o.Head) {
+	if o == nil || httpclients.IsNil(o.Head) {
 		var ret float64
 		return ret
 	}
@@ -120,7 +122,7 @@ func (o *RobloxWebResponsesAvatarScaleModel) GetHead() float64 {
 // GetHeadOk returns a tuple with the Head field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RobloxWebResponsesAvatarScaleModel) GetHeadOk() (*float64, bool) {
-	if o == nil || IsNil(o.Head) {
+	if o == nil || httpclients.IsNil(o.Head) {
 		return nil, false
 	}
 	return o.Head, true
@@ -128,7 +130,7 @@ func (o *RobloxWebResponsesAvatarScaleModel) GetHeadOk() (*float64, bool) {
 
 // HasHead returns a boolean if a field has been set.
 func (o *RobloxWebResponsesAvatarScaleModel) HasHead() bool {
-	if o != nil && !IsNil(o.Head) {
+	if o != nil && !httpclients.IsNil(o.Head) {
 		return true
 	}
 
@@ -142,7 +144,7 @@ func (o *RobloxWebResponsesAvatarScaleModel) SetHead(v float64) {
 
 // GetDepth returns the Depth field value if set, zero value otherwise.
 func (o *RobloxWebResponsesAvatarScaleModel) GetDepth() float64 {
-	if o == nil || IsNil(o.Depth) {
+	if o == nil || httpclients.IsNil(o.Depth) {
 		var ret float64
 		return ret
 	}
@@ -152,7 +154,7 @@ func (o *RobloxWebResponsesAvatarScaleModel) GetDepth() float64 {
 // GetDepthOk returns a tuple with the Depth field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RobloxWebResponsesAvatarScaleModel) GetDepthOk() (*float64, bool) {
-	if o == nil || IsNil(o.Depth) {
+	if o == nil || httpclients.IsNil(o.Depth) {
 		return nil, false
 	}
 	return o.Depth, true
@@ -160,7 +162,7 @@ func (o *RobloxWebResponsesAvatarScaleModel) GetDepthOk() (*float64, bool) {
 
 // HasDepth returns a boolean if a field has been set.
 func (o *RobloxWebResponsesAvatarScaleModel) HasDepth() bool {
-	if o != nil && !IsNil(o.Depth) {
+	if o != nil && !httpclients.IsNil(o.Depth) {
 		return true
 	}
 
@@ -174,7 +176,7 @@ func (o *RobloxWebResponsesAvatarScaleModel) SetDepth(v float64) {
 
 // GetProportion returns the Proportion field value if set, zero value otherwise.
 func (o *RobloxWebResponsesAvatarScaleModel) GetProportion() float64 {
-	if o == nil || IsNil(o.Proportion) {
+	if o == nil || httpclients.IsNil(o.Proportion) {
 		var ret float64
 		return ret
 	}
@@ -184,7 +186,7 @@ func (o *RobloxWebResponsesAvatarScaleModel) GetProportion() float64 {
 // GetProportionOk returns a tuple with the Proportion field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RobloxWebResponsesAvatarScaleModel) GetProportionOk() (*float64, bool) {
-	if o == nil || IsNil(o.Proportion) {
+	if o == nil || httpclients.IsNil(o.Proportion) {
 		return nil, false
 	}
 	return o.Proportion, true
@@ -192,7 +194,7 @@ func (o *RobloxWebResponsesAvatarScaleModel) GetProportionOk() (*float64, bool) 
 
 // HasProportion returns a boolean if a field has been set.
 func (o *RobloxWebResponsesAvatarScaleModel) HasProportion() bool {
-	if o != nil && !IsNil(o.Proportion) {
+	if o != nil && !httpclients.IsNil(o.Proportion) {
 		return true
 	}
 
@@ -206,7 +208,7 @@ func (o *RobloxWebResponsesAvatarScaleModel) SetProportion(v float64) {
 
 // GetBodyType returns the BodyType field value if set, zero value otherwise.
 func (o *RobloxWebResponsesAvatarScaleModel) GetBodyType() float64 {
-	if o == nil || IsNil(o.BodyType) {
+	if o == nil || httpclients.IsNil(o.BodyType) {
 		var ret float64
 		return ret
 	}
@@ -216,7 +218,7 @@ func (o *RobloxWebResponsesAvatarScaleModel) GetBodyType() float64 {
 // GetBodyTypeOk returns a tuple with the BodyType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RobloxWebResponsesAvatarScaleModel) GetBodyTypeOk() (*float64, bool) {
-	if o == nil || IsNil(o.BodyType) {
+	if o == nil || httpclients.IsNil(o.BodyType) {
 		return nil, false
 	}
 	return o.BodyType, true
@@ -224,7 +226,7 @@ func (o *RobloxWebResponsesAvatarScaleModel) GetBodyTypeOk() (*float64, bool) {
 
 // HasBodyType returns a boolean if a field has been set.
 func (o *RobloxWebResponsesAvatarScaleModel) HasBodyType() bool {
-	if o != nil && !IsNil(o.BodyType) {
+	if o != nil && !httpclients.IsNil(o.BodyType) {
 		return true
 	}
 
@@ -246,22 +248,22 @@ func (o RobloxWebResponsesAvatarScaleModel) MarshalJSON() ([]byte, error) {
 
 func (o RobloxWebResponsesAvatarScaleModel) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Height) {
+	if !httpclients.IsNil(o.Height) {
 		toSerialize["height"] = o.Height
 	}
-	if !IsNil(o.Width) {
+	if !httpclients.IsNil(o.Width) {
 		toSerialize["width"] = o.Width
 	}
-	if !IsNil(o.Head) {
+	if !httpclients.IsNil(o.Head) {
 		toSerialize["head"] = o.Head
 	}
-	if !IsNil(o.Depth) {
+	if !httpclients.IsNil(o.Depth) {
 		toSerialize["depth"] = o.Depth
 	}
-	if !IsNil(o.Proportion) {
+	if !httpclients.IsNil(o.Proportion) {
 		toSerialize["proportion"] = o.Proportion
 	}
-	if !IsNil(o.BodyType) {
+	if !httpclients.IsNil(o.BodyType) {
 		toSerialize["bodyType"] = o.BodyType
 	}
 	return toSerialize, nil

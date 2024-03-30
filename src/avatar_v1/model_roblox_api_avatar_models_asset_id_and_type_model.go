@@ -12,10 +12,12 @@ package avatarv1
 
 import (
 	"encoding/json"
+
+	httpclients "github.com/mfdlabs/grid-service-websrv/http_clients"
 )
 
 // checks if the RobloxApiAvatarModelsAssetIdAndTypeModel type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &RobloxApiAvatarModelsAssetIdAndTypeModel{}
+var _ httpclients.MappedNullable = &RobloxApiAvatarModelsAssetIdAndTypeModel{}
 
 // RobloxApiAvatarModelsAssetIdAndTypeModel struct for RobloxApiAvatarModelsAssetIdAndTypeModel
 type RobloxApiAvatarModelsAssetIdAndTypeModel struct {
@@ -42,7 +44,7 @@ func NewRobloxApiAvatarModelsAssetIdAndTypeModelWithDefaults() *RobloxApiAvatarM
 
 // GetAssetId returns the AssetId field value if set, zero value otherwise.
 func (o *RobloxApiAvatarModelsAssetIdAndTypeModel) GetAssetId() int64 {
-	if o == nil || IsNil(o.AssetId) {
+	if o == nil || httpclients.IsNil(o.AssetId) {
 		var ret int64
 		return ret
 	}
@@ -52,7 +54,7 @@ func (o *RobloxApiAvatarModelsAssetIdAndTypeModel) GetAssetId() int64 {
 // GetAssetIdOk returns a tuple with the AssetId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RobloxApiAvatarModelsAssetIdAndTypeModel) GetAssetIdOk() (*int64, bool) {
-	if o == nil || IsNil(o.AssetId) {
+	if o == nil || httpclients.IsNil(o.AssetId) {
 		return nil, false
 	}
 	return o.AssetId, true
@@ -60,7 +62,7 @@ func (o *RobloxApiAvatarModelsAssetIdAndTypeModel) GetAssetIdOk() (*int64, bool)
 
 // HasAssetId returns a boolean if a field has been set.
 func (o *RobloxApiAvatarModelsAssetIdAndTypeModel) HasAssetId() bool {
-	if o != nil && !IsNil(o.AssetId) {
+	if o != nil && !httpclients.IsNil(o.AssetId) {
 		return true
 	}
 
@@ -74,7 +76,7 @@ func (o *RobloxApiAvatarModelsAssetIdAndTypeModel) SetAssetId(v int64) {
 
 // GetAssetTypeId returns the AssetTypeId field value if set, zero value otherwise.
 func (o *RobloxApiAvatarModelsAssetIdAndTypeModel) GetAssetTypeId() int64 {
-	if o == nil || IsNil(o.AssetTypeId) {
+	if o == nil || httpclients.IsNil(o.AssetTypeId) {
 		var ret int64
 		return ret
 	}
@@ -84,7 +86,7 @@ func (o *RobloxApiAvatarModelsAssetIdAndTypeModel) GetAssetTypeId() int64 {
 // GetAssetTypeIdOk returns a tuple with the AssetTypeId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RobloxApiAvatarModelsAssetIdAndTypeModel) GetAssetTypeIdOk() (*int64, bool) {
-	if o == nil || IsNil(o.AssetTypeId) {
+	if o == nil || httpclients.IsNil(o.AssetTypeId) {
 		return nil, false
 	}
 	return o.AssetTypeId, true
@@ -92,7 +94,7 @@ func (o *RobloxApiAvatarModelsAssetIdAndTypeModel) GetAssetTypeIdOk() (*int64, b
 
 // HasAssetTypeId returns a boolean if a field has been set.
 func (o *RobloxApiAvatarModelsAssetIdAndTypeModel) HasAssetTypeId() bool {
-	if o != nil && !IsNil(o.AssetTypeId) {
+	if o != nil && !httpclients.IsNil(o.AssetTypeId) {
 		return true
 	}
 
@@ -114,10 +116,10 @@ func (o RobloxApiAvatarModelsAssetIdAndTypeModel) MarshalJSON() ([]byte, error) 
 
 func (o RobloxApiAvatarModelsAssetIdAndTypeModel) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.AssetId) {
+	if !httpclients.IsNil(o.AssetId) {
 		toSerialize["assetId"] = o.AssetId
 	}
-	if !IsNil(o.AssetTypeId) {
+	if !httpclients.IsNil(o.AssetTypeId) {
 		toSerialize["assetTypeId"] = o.AssetTypeId
 	}
 	return toSerialize, nil

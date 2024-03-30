@@ -1,0 +1,78 @@
+#  Copyright 2022 Nikita Petko <petko@vmminfra.net>
+#
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+
+#############################################################################
+#############################################################################
+##                                                                         ##
+##       Configuration file for the Roblox Platform Leaf Certificate       ##
+##                                                                         ##
+#############################################################################
+#############################################################################
+
+root_ca:
+  - name: global-ca
+    password: ${{ env.global_ca_password }}
+    pfx_password: ${{ env.global_ca_pfx_password }}
+    has_extension_file: true
+    generate_dhparam: true
+    overwrite_config: true
+    validity_period: 7305
+    key_Length: 2048
+    overwrite: false
+    config:
+      country: US
+      state: California
+      locality: Los Angeles
+      organization: MFDLABS
+      organizational_unit: MFDLABS Certification Authority Team
+      common_name: Certification Authority @ global.mfdlabs.local
+      email: ca@global.mfdlabs.local
+      critical_basic_constraints: true
+      critical_key_usage: true
+leaf_certificate:
+  - name: roblox-platform
+    ca_name: global-ca
+    ca_password: ${{ env.global_ca_password }}
+    is_ca_root_ca: true
+    password: ${{ env.roblox_platform_password }}
+    pfx_password: ${{ env.roblox_platform_pfx_password }}
+    validity_period: 365
+    key_Length: 2048
+    generate_dhparam: true
+    overwrite_config: true
+    overwrite: false
+    config:
+      country: US
+      organization: MFDLABS
+      organizational_unit: "Roblox Platform Ops"
+      common_name: "grid-service-websrv"
+      email: "petko@vmminfra.net"
+      critical_extended_key_usage: true
+      critical_basic_constraints: true
+      authority_key_identifier: keyid,issuer
+      key_usage:
+        - nonRepudiation
+        - digitalSignature
+        - keyEncipherment
+      extended_key_usage:
+        - serverAuth
+        - clientAuth
+        - codeSigning
+        - emailProtection
+      subject_alternative_name:
+        dns_names:
+          - "sitetest4.robloxlabs.com"
+          - "*.sitetest4.robloxlabs.com"
+          - "*.api.sitetest4.robloxlabs.com"
+          - "*.registries.vmminfra.dev"

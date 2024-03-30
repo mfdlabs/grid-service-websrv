@@ -12,10 +12,12 @@ package avatarv1
 
 import (
 	"encoding/json"
+
+	httpclients "github.com/mfdlabs/grid-service-websrv/http_clients"
 )
 
 // checks if the RobloxApiAvatarModelsAvatarFetchModel type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &RobloxApiAvatarModelsAvatarFetchModel{}
+var _ httpclients.MappedNullable = &RobloxApiAvatarModelsAvatarFetchModel{}
 
 // RobloxApiAvatarModelsAvatarFetchModel struct for RobloxApiAvatarModelsAvatarFetchModel
 type RobloxApiAvatarModelsAvatarFetchModel struct {
@@ -47,7 +49,7 @@ func NewRobloxApiAvatarModelsAvatarFetchModelWithDefaults() *RobloxApiAvatarMode
 
 // GetResolvedAvatarType returns the ResolvedAvatarType field value if set, zero value otherwise.
 func (o *RobloxApiAvatarModelsAvatarFetchModel) GetResolvedAvatarType() string {
-	if o == nil || IsNil(o.ResolvedAvatarType) {
+	if o == nil || httpclients.IsNil(o.ResolvedAvatarType) {
 		var ret string
 		return ret
 	}
@@ -57,7 +59,7 @@ func (o *RobloxApiAvatarModelsAvatarFetchModel) GetResolvedAvatarType() string {
 // GetResolvedAvatarTypeOk returns a tuple with the ResolvedAvatarType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RobloxApiAvatarModelsAvatarFetchModel) GetResolvedAvatarTypeOk() (*string, bool) {
-	if o == nil || IsNil(o.ResolvedAvatarType) {
+	if o == nil || httpclients.IsNil(o.ResolvedAvatarType) {
 		return nil, false
 	}
 	return o.ResolvedAvatarType, true
@@ -65,7 +67,7 @@ func (o *RobloxApiAvatarModelsAvatarFetchModel) GetResolvedAvatarTypeOk() (*stri
 
 // HasResolvedAvatarType returns a boolean if a field has been set.
 func (o *RobloxApiAvatarModelsAvatarFetchModel) HasResolvedAvatarType() bool {
-	if o != nil && !IsNil(o.ResolvedAvatarType) {
+	if o != nil && !httpclients.IsNil(o.ResolvedAvatarType) {
 		return true
 	}
 
@@ -79,7 +81,7 @@ func (o *RobloxApiAvatarModelsAvatarFetchModel) SetResolvedAvatarType(v string) 
 
 // GetEquippedGearVersionIds returns the EquippedGearVersionIds field value if set, zero value otherwise.
 func (o *RobloxApiAvatarModelsAvatarFetchModel) GetEquippedGearVersionIds() []int64 {
-	if o == nil || IsNil(o.EquippedGearVersionIds) {
+	if o == nil || httpclients.IsNil(o.EquippedGearVersionIds) {
 		var ret []int64
 		return ret
 	}
@@ -89,7 +91,7 @@ func (o *RobloxApiAvatarModelsAvatarFetchModel) GetEquippedGearVersionIds() []in
 // GetEquippedGearVersionIdsOk returns a tuple with the EquippedGearVersionIds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RobloxApiAvatarModelsAvatarFetchModel) GetEquippedGearVersionIdsOk() ([]int64, bool) {
-	if o == nil || IsNil(o.EquippedGearVersionIds) {
+	if o == nil || httpclients.IsNil(o.EquippedGearVersionIds) {
 		return nil, false
 	}
 	return o.EquippedGearVersionIds, true
@@ -97,7 +99,7 @@ func (o *RobloxApiAvatarModelsAvatarFetchModel) GetEquippedGearVersionIdsOk() ([
 
 // HasEquippedGearVersionIds returns a boolean if a field has been set.
 func (o *RobloxApiAvatarModelsAvatarFetchModel) HasEquippedGearVersionIds() bool {
-	if o != nil && !IsNil(o.EquippedGearVersionIds) {
+	if o != nil && !httpclients.IsNil(o.EquippedGearVersionIds) {
 		return true
 	}
 
@@ -111,7 +113,7 @@ func (o *RobloxApiAvatarModelsAvatarFetchModel) SetEquippedGearVersionIds(v []in
 
 // GetBackpackGearVersionIds returns the BackpackGearVersionIds field value if set, zero value otherwise.
 func (o *RobloxApiAvatarModelsAvatarFetchModel) GetBackpackGearVersionIds() []int64 {
-	if o == nil || IsNil(o.BackpackGearVersionIds) {
+	if o == nil || httpclients.IsNil(o.BackpackGearVersionIds) {
 		var ret []int64
 		return ret
 	}
@@ -121,7 +123,7 @@ func (o *RobloxApiAvatarModelsAvatarFetchModel) GetBackpackGearVersionIds() []in
 // GetBackpackGearVersionIdsOk returns a tuple with the BackpackGearVersionIds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RobloxApiAvatarModelsAvatarFetchModel) GetBackpackGearVersionIdsOk() ([]int64, bool) {
-	if o == nil || IsNil(o.BackpackGearVersionIds) {
+	if o == nil || httpclients.IsNil(o.BackpackGearVersionIds) {
 		return nil, false
 	}
 	return o.BackpackGearVersionIds, true
@@ -129,7 +131,7 @@ func (o *RobloxApiAvatarModelsAvatarFetchModel) GetBackpackGearVersionIdsOk() ([
 
 // HasBackpackGearVersionIds returns a boolean if a field has been set.
 func (o *RobloxApiAvatarModelsAvatarFetchModel) HasBackpackGearVersionIds() bool {
-	if o != nil && !IsNil(o.BackpackGearVersionIds) {
+	if o != nil && !httpclients.IsNil(o.BackpackGearVersionIds) {
 		return true
 	}
 
@@ -143,7 +145,7 @@ func (o *RobloxApiAvatarModelsAvatarFetchModel) SetBackpackGearVersionIds(v []in
 
 // GetAssetAndAssetTypeIds returns the AssetAndAssetTypeIds field value if set, zero value otherwise.
 func (o *RobloxApiAvatarModelsAvatarFetchModel) GetAssetAndAssetTypeIds() []RobloxApiAvatarModelsAssetIdAndTypeModel {
-	if o == nil || IsNil(o.AssetAndAssetTypeIds) {
+	if o == nil || httpclients.IsNil(o.AssetAndAssetTypeIds) {
 		var ret []RobloxApiAvatarModelsAssetIdAndTypeModel
 		return ret
 	}
@@ -153,7 +155,7 @@ func (o *RobloxApiAvatarModelsAvatarFetchModel) GetAssetAndAssetTypeIds() []Robl
 // GetAssetAndAssetTypeIdsOk returns a tuple with the AssetAndAssetTypeIds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RobloxApiAvatarModelsAvatarFetchModel) GetAssetAndAssetTypeIdsOk() ([]RobloxApiAvatarModelsAssetIdAndTypeModel, bool) {
-	if o == nil || IsNil(o.AssetAndAssetTypeIds) {
+	if o == nil || httpclients.IsNil(o.AssetAndAssetTypeIds) {
 		return nil, false
 	}
 	return o.AssetAndAssetTypeIds, true
@@ -161,7 +163,7 @@ func (o *RobloxApiAvatarModelsAvatarFetchModel) GetAssetAndAssetTypeIdsOk() ([]R
 
 // HasAssetAndAssetTypeIds returns a boolean if a field has been set.
 func (o *RobloxApiAvatarModelsAvatarFetchModel) HasAssetAndAssetTypeIds() bool {
-	if o != nil && !IsNil(o.AssetAndAssetTypeIds) {
+	if o != nil && !httpclients.IsNil(o.AssetAndAssetTypeIds) {
 		return true
 	}
 
@@ -175,7 +177,7 @@ func (o *RobloxApiAvatarModelsAvatarFetchModel) SetAssetAndAssetTypeIds(v []Robl
 
 // GetAnimationAssetIds returns the AnimationAssetIds field value if set, zero value otherwise.
 func (o *RobloxApiAvatarModelsAvatarFetchModel) GetAnimationAssetIds() map[string]int64 {
-	if o == nil || IsNil(o.AnimationAssetIds) {
+	if o == nil || httpclients.IsNil(o.AnimationAssetIds) {
 		var ret map[string]int64
 		return ret
 	}
@@ -185,7 +187,7 @@ func (o *RobloxApiAvatarModelsAvatarFetchModel) GetAnimationAssetIds() map[strin
 // GetAnimationAssetIdsOk returns a tuple with the AnimationAssetIds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RobloxApiAvatarModelsAvatarFetchModel) GetAnimationAssetIdsOk() (*map[string]int64, bool) {
-	if o == nil || IsNil(o.AnimationAssetIds) {
+	if o == nil || httpclients.IsNil(o.AnimationAssetIds) {
 		return nil, false
 	}
 	return o.AnimationAssetIds, true
@@ -193,7 +195,7 @@ func (o *RobloxApiAvatarModelsAvatarFetchModel) GetAnimationAssetIdsOk() (*map[s
 
 // HasAnimationAssetIds returns a boolean if a field has been set.
 func (o *RobloxApiAvatarModelsAvatarFetchModel) HasAnimationAssetIds() bool {
-	if o != nil && !IsNil(o.AnimationAssetIds) {
+	if o != nil && !httpclients.IsNil(o.AnimationAssetIds) {
 		return true
 	}
 
@@ -207,7 +209,7 @@ func (o *RobloxApiAvatarModelsAvatarFetchModel) SetAnimationAssetIds(v map[strin
 
 // GetBodyColors returns the BodyColors field value if set, zero value otherwise.
 func (o *RobloxApiAvatarModelsAvatarFetchModel) GetBodyColors() RobloxApiAvatarModelsBodyColorsModel {
-	if o == nil || IsNil(o.BodyColors) {
+	if o == nil || httpclients.IsNil(o.BodyColors) {
 		var ret RobloxApiAvatarModelsBodyColorsModel
 		return ret
 	}
@@ -217,7 +219,7 @@ func (o *RobloxApiAvatarModelsAvatarFetchModel) GetBodyColors() RobloxApiAvatarM
 // GetBodyColorsOk returns a tuple with the BodyColors field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RobloxApiAvatarModelsAvatarFetchModel) GetBodyColorsOk() (*RobloxApiAvatarModelsBodyColorsModel, bool) {
-	if o == nil || IsNil(o.BodyColors) {
+	if o == nil || httpclients.IsNil(o.BodyColors) {
 		return nil, false
 	}
 	return o.BodyColors, true
@@ -225,7 +227,7 @@ func (o *RobloxApiAvatarModelsAvatarFetchModel) GetBodyColorsOk() (*RobloxApiAva
 
 // HasBodyColors returns a boolean if a field has been set.
 func (o *RobloxApiAvatarModelsAvatarFetchModel) HasBodyColors() bool {
-	if o != nil && !IsNil(o.BodyColors) {
+	if o != nil && !httpclients.IsNil(o.BodyColors) {
 		return true
 	}
 
@@ -239,7 +241,7 @@ func (o *RobloxApiAvatarModelsAvatarFetchModel) SetBodyColors(v RobloxApiAvatarM
 
 // GetScales returns the Scales field value if set, zero value otherwise.
 func (o *RobloxApiAvatarModelsAvatarFetchModel) GetScales() RobloxWebResponsesAvatarScaleModel {
-	if o == nil || IsNil(o.Scales) {
+	if o == nil || httpclients.IsNil(o.Scales) {
 		var ret RobloxWebResponsesAvatarScaleModel
 		return ret
 	}
@@ -249,7 +251,7 @@ func (o *RobloxApiAvatarModelsAvatarFetchModel) GetScales() RobloxWebResponsesAv
 // GetScalesOk returns a tuple with the Scales field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RobloxApiAvatarModelsAvatarFetchModel) GetScalesOk() (*RobloxWebResponsesAvatarScaleModel, bool) {
-	if o == nil || IsNil(o.Scales) {
+	if o == nil || httpclients.IsNil(o.Scales) {
 		return nil, false
 	}
 	return o.Scales, true
@@ -257,7 +259,7 @@ func (o *RobloxApiAvatarModelsAvatarFetchModel) GetScalesOk() (*RobloxWebRespons
 
 // HasScales returns a boolean if a field has been set.
 func (o *RobloxApiAvatarModelsAvatarFetchModel) HasScales() bool {
-	if o != nil && !IsNil(o.Scales) {
+	if o != nil && !httpclients.IsNil(o.Scales) {
 		return true
 	}
 
@@ -279,25 +281,25 @@ func (o RobloxApiAvatarModelsAvatarFetchModel) MarshalJSON() ([]byte, error) {
 
 func (o RobloxApiAvatarModelsAvatarFetchModel) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.ResolvedAvatarType) {
+	if !httpclients.IsNil(o.ResolvedAvatarType) {
 		toSerialize["resolvedAvatarType"] = o.ResolvedAvatarType
 	}
-	if !IsNil(o.EquippedGearVersionIds) {
+	if !httpclients.IsNil(o.EquippedGearVersionIds) {
 		toSerialize["equippedGearVersionIds"] = o.EquippedGearVersionIds
 	}
-	if !IsNil(o.BackpackGearVersionIds) {
+	if !httpclients.IsNil(o.BackpackGearVersionIds) {
 		toSerialize["backpackGearVersionIds"] = o.BackpackGearVersionIds
 	}
-	if !IsNil(o.AssetAndAssetTypeIds) {
+	if !httpclients.IsNil(o.AssetAndAssetTypeIds) {
 		toSerialize["assetAndAssetTypeIds"] = o.AssetAndAssetTypeIds
 	}
-	if !IsNil(o.AnimationAssetIds) {
+	if !httpclients.IsNil(o.AnimationAssetIds) {
 		toSerialize["animationAssetIds"] = o.AnimationAssetIds
 	}
-	if !IsNil(o.BodyColors) {
+	if !httpclients.IsNil(o.BodyColors) {
 		toSerialize["bodyColors"] = o.BodyColors
 	}
-	if !IsNil(o.Scales) {
+	if !httpclients.IsNil(o.Scales) {
 		toSerialize["scales"] = o.Scales
 	}
 	return toSerialize, nil
