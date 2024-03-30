@@ -55,44 +55,57 @@ func mergeMaps(a, b map[string]interface{}) map[string]interface{} {
 	return a
 }
 
-func (csp *ClientSettingsProvider) resolveWithDependencies(group string) (map[string]interface{}, bool) {
+func mergeArrays(a, b []string) []string {
+	for _, v := range b {
+		if stringInSlice(v, a) {
+			continue
+		}
+
+		a = append(a, v)
+	}
+
+	return a
+}
+
+func (csp *ClientSettingsProvider) resolveWithDependencies(group string) (map[string]interface{}, []string, bool) {
 	var (
-		cs map[string]interface{}
-		ok bool
+		cs  map[string]interface{}
+		dps []string
+		ok  bool
 	)
 	if cs, ok = csp.cachedGroupSettings[group]; !ok {
-		return nil, false
+		return nil, nil, false
 	}
 
 	if depends, ok := csp.cachedGroupDepends[group]; ok {
 		oldCs := cs
 		cs = make(map[string]interface{})
+		dps = csp.cachedGroupDepends[group]
 
 		for _, depend := range depends {
-			if dependSettings, ok := csp.resolveWithDependencies(depend); ok {
+			if dependSettings, dependDependencies, ok := csp.resolveWithDependencies(depend); ok {
 				cs = mergeMaps(cs, dependSettings)
+				dps = mergeArrays(dps, dependDependencies)
 			}
 		}
 
 		cs = mergeMaps(cs, oldCs) // Overwrite the old settings with the new ones.
 	}
 
-	return cs, true
+	return cs, dps, true
 }
 
 // GetGroup returns the client settings.
-func (csp *ClientSettingsProvider) GetGroup(group string) (map[string]interface{}, bool) {
+func (csp *ClientSettingsProvider) GetGroup(group string) (map[string]interface{}, []string, bool, bool) {
 	csp.rwMutex.RLock()
 	defer csp.rwMutex.RUnlock()
 
-	allowedFromClientSettingsService := csp.allowedGroupsFromClientSettingsService[group]
-	if !allowedFromClientSettingsService {
-		return nil, false
+	cs, depends, ok := csp.resolveWithDependencies(group)
+	if !ok {
+		return nil, nil, false, false
 	}
 
-	cs, ok := csp.resolveWithDependencies(group)
-
-	return cs, ok
+	return cs, depends, csp.allowedGroupsFromClientSettingsService[group], true
 }
 
 // Get returns a client setting.
@@ -100,7 +113,7 @@ func (csp *ClientSettingsProvider) Get(group, name string) (interface{}, bool) {
 	csp.rwMutex.RLock()
 	defer csp.rwMutex.RUnlock()
 
-	cs, ok := csp.resolveWithDependencies(group)
+	cs, _, ok := csp.resolveWithDependencies(group)
 	if !ok {
 		return nil, false
 	}
@@ -361,7 +374,7 @@ func (csp *ClientSettingsProvider) getSettingsForGroupAndCache(group string) map
 		// Check for $ref
 		if ref, ok := metadata.CustomMetadata["$ref"]; ok {
 			csp.getSettingsForGroupAndCache(ref.(string))
-			csp.cachedGroupSettings[group], _ = csp.resolveWithDependencies(ref.(string))
+			csp.cachedGroupSettings[group], _, _ = csp.resolveWithDependencies(ref.(string))
 			csp.currentRefreshedGroups[group] = true
 
 			return csp.cachedGroupSettings[group]

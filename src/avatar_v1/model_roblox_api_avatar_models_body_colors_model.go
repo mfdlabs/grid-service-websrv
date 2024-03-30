@@ -12,10 +12,12 @@ package avatarv1
 
 import (
 	"encoding/json"
+
+	httpclients "github.com/mfdlabs/grid-service-websrv/http_clients"
 )
 
 // checks if the RobloxApiAvatarModelsBodyColorsModel type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &RobloxApiAvatarModelsBodyColorsModel{}
+var _ httpclients.MappedNullable = &RobloxApiAvatarModelsBodyColorsModel{}
 
 // RobloxApiAvatarModelsBodyColorsModel A model container BrickColor ids for each body part.
 type RobloxApiAvatarModelsBodyColorsModel struct {
@@ -46,7 +48,7 @@ func NewRobloxApiAvatarModelsBodyColorsModelWithDefaults() *RobloxApiAvatarModel
 
 // GetHeadColorId returns the HeadColorId field value if set, zero value otherwise.
 func (o *RobloxApiAvatarModelsBodyColorsModel) GetHeadColorId() int32 {
-	if o == nil || IsNil(o.HeadColorId) {
+	if o == nil || httpclients.IsNil(o.HeadColorId) {
 		var ret int32
 		return ret
 	}
@@ -56,7 +58,7 @@ func (o *RobloxApiAvatarModelsBodyColorsModel) GetHeadColorId() int32 {
 // GetHeadColorIdOk returns a tuple with the HeadColorId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RobloxApiAvatarModelsBodyColorsModel) GetHeadColorIdOk() (*int32, bool) {
-	if o == nil || IsNil(o.HeadColorId) {
+	if o == nil || httpclients.IsNil(o.HeadColorId) {
 		return nil, false
 	}
 	return o.HeadColorId, true
@@ -64,7 +66,7 @@ func (o *RobloxApiAvatarModelsBodyColorsModel) GetHeadColorIdOk() (*int32, bool)
 
 // HasHeadColorId returns a boolean if a field has been set.
 func (o *RobloxApiAvatarModelsBodyColorsModel) HasHeadColorId() bool {
-	if o != nil && !IsNil(o.HeadColorId) {
+	if o != nil && !httpclients.IsNil(o.HeadColorId) {
 		return true
 	}
 
@@ -78,7 +80,7 @@ func (o *RobloxApiAvatarModelsBodyColorsModel) SetHeadColorId(v int32) {
 
 // GetTorsoColorId returns the TorsoColorId field value if set, zero value otherwise.
 func (o *RobloxApiAvatarModelsBodyColorsModel) GetTorsoColorId() int32 {
-	if o == nil || IsNil(o.TorsoColorId) {
+	if o == nil || httpclients.IsNil(o.TorsoColorId) {
 		var ret int32
 		return ret
 	}
@@ -88,7 +90,7 @@ func (o *RobloxApiAvatarModelsBodyColorsModel) GetTorsoColorId() int32 {
 // GetTorsoColorIdOk returns a tuple with the TorsoColorId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RobloxApiAvatarModelsBodyColorsModel) GetTorsoColorIdOk() (*int32, bool) {
-	if o == nil || IsNil(o.TorsoColorId) {
+	if o == nil || httpclients.IsNil(o.TorsoColorId) {
 		return nil, false
 	}
 	return o.TorsoColorId, true
@@ -96,7 +98,7 @@ func (o *RobloxApiAvatarModelsBodyColorsModel) GetTorsoColorIdOk() (*int32, bool
 
 // HasTorsoColorId returns a boolean if a field has been set.
 func (o *RobloxApiAvatarModelsBodyColorsModel) HasTorsoColorId() bool {
-	if o != nil && !IsNil(o.TorsoColorId) {
+	if o != nil && !httpclients.IsNil(o.TorsoColorId) {
 		return true
 	}
 
@@ -110,7 +112,7 @@ func (o *RobloxApiAvatarModelsBodyColorsModel) SetTorsoColorId(v int32) {
 
 // GetRightArmColorId returns the RightArmColorId field value if set, zero value otherwise.
 func (o *RobloxApiAvatarModelsBodyColorsModel) GetRightArmColorId() int32 {
-	if o == nil || IsNil(o.RightArmColorId) {
+	if o == nil || httpclients.IsNil(o.RightArmColorId) {
 		var ret int32
 		return ret
 	}
@@ -120,7 +122,7 @@ func (o *RobloxApiAvatarModelsBodyColorsModel) GetRightArmColorId() int32 {
 // GetRightArmColorIdOk returns a tuple with the RightArmColorId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RobloxApiAvatarModelsBodyColorsModel) GetRightArmColorIdOk() (*int32, bool) {
-	if o == nil || IsNil(o.RightArmColorId) {
+	if o == nil || httpclients.IsNil(o.RightArmColorId) {
 		return nil, false
 	}
 	return o.RightArmColorId, true
@@ -128,7 +130,7 @@ func (o *RobloxApiAvatarModelsBodyColorsModel) GetRightArmColorIdOk() (*int32, b
 
 // HasRightArmColorId returns a boolean if a field has been set.
 func (o *RobloxApiAvatarModelsBodyColorsModel) HasRightArmColorId() bool {
-	if o != nil && !IsNil(o.RightArmColorId) {
+	if o != nil && !httpclients.IsNil(o.RightArmColorId) {
 		return true
 	}
 
@@ -142,7 +144,7 @@ func (o *RobloxApiAvatarModelsBodyColorsModel) SetRightArmColorId(v int32) {
 
 // GetLeftArmColorId returns the LeftArmColorId field value if set, zero value otherwise.
 func (o *RobloxApiAvatarModelsBodyColorsModel) GetLeftArmColorId() int32 {
-	if o == nil || IsNil(o.LeftArmColorId) {
+	if o == nil || httpclients.IsNil(o.LeftArmColorId) {
 		var ret int32
 		return ret
 	}
@@ -152,7 +154,7 @@ func (o *RobloxApiAvatarModelsBodyColorsModel) GetLeftArmColorId() int32 {
 // GetLeftArmColorIdOk returns a tuple with the LeftArmColorId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RobloxApiAvatarModelsBodyColorsModel) GetLeftArmColorIdOk() (*int32, bool) {
-	if o == nil || IsNil(o.LeftArmColorId) {
+	if o == nil || httpclients.IsNil(o.LeftArmColorId) {
 		return nil, false
 	}
 	return o.LeftArmColorId, true
@@ -160,7 +162,7 @@ func (o *RobloxApiAvatarModelsBodyColorsModel) GetLeftArmColorIdOk() (*int32, bo
 
 // HasLeftArmColorId returns a boolean if a field has been set.
 func (o *RobloxApiAvatarModelsBodyColorsModel) HasLeftArmColorId() bool {
-	if o != nil && !IsNil(o.LeftArmColorId) {
+	if o != nil && !httpclients.IsNil(o.LeftArmColorId) {
 		return true
 	}
 
@@ -174,7 +176,7 @@ func (o *RobloxApiAvatarModelsBodyColorsModel) SetLeftArmColorId(v int32) {
 
 // GetRightLegColorId returns the RightLegColorId field value if set, zero value otherwise.
 func (o *RobloxApiAvatarModelsBodyColorsModel) GetRightLegColorId() int32 {
-	if o == nil || IsNil(o.RightLegColorId) {
+	if o == nil || httpclients.IsNil(o.RightLegColorId) {
 		var ret int32
 		return ret
 	}
@@ -184,7 +186,7 @@ func (o *RobloxApiAvatarModelsBodyColorsModel) GetRightLegColorId() int32 {
 // GetRightLegColorIdOk returns a tuple with the RightLegColorId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RobloxApiAvatarModelsBodyColorsModel) GetRightLegColorIdOk() (*int32, bool) {
-	if o == nil || IsNil(o.RightLegColorId) {
+	if o == nil || httpclients.IsNil(o.RightLegColorId) {
 		return nil, false
 	}
 	return o.RightLegColorId, true
@@ -192,7 +194,7 @@ func (o *RobloxApiAvatarModelsBodyColorsModel) GetRightLegColorIdOk() (*int32, b
 
 // HasRightLegColorId returns a boolean if a field has been set.
 func (o *RobloxApiAvatarModelsBodyColorsModel) HasRightLegColorId() bool {
-	if o != nil && !IsNil(o.RightLegColorId) {
+	if o != nil && !httpclients.IsNil(o.RightLegColorId) {
 		return true
 	}
 
@@ -206,7 +208,7 @@ func (o *RobloxApiAvatarModelsBodyColorsModel) SetRightLegColorId(v int32) {
 
 // GetLeftLegColorId returns the LeftLegColorId field value if set, zero value otherwise.
 func (o *RobloxApiAvatarModelsBodyColorsModel) GetLeftLegColorId() int32 {
-	if o == nil || IsNil(o.LeftLegColorId) {
+	if o == nil || httpclients.IsNil(o.LeftLegColorId) {
 		var ret int32
 		return ret
 	}
@@ -216,7 +218,7 @@ func (o *RobloxApiAvatarModelsBodyColorsModel) GetLeftLegColorId() int32 {
 // GetLeftLegColorIdOk returns a tuple with the LeftLegColorId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RobloxApiAvatarModelsBodyColorsModel) GetLeftLegColorIdOk() (*int32, bool) {
-	if o == nil || IsNil(o.LeftLegColorId) {
+	if o == nil || httpclients.IsNil(o.LeftLegColorId) {
 		return nil, false
 	}
 	return o.LeftLegColorId, true
@@ -224,7 +226,7 @@ func (o *RobloxApiAvatarModelsBodyColorsModel) GetLeftLegColorIdOk() (*int32, bo
 
 // HasLeftLegColorId returns a boolean if a field has been set.
 func (o *RobloxApiAvatarModelsBodyColorsModel) HasLeftLegColorId() bool {
-	if o != nil && !IsNil(o.LeftLegColorId) {
+	if o != nil && !httpclients.IsNil(o.LeftLegColorId) {
 		return true
 	}
 
@@ -246,22 +248,22 @@ func (o RobloxApiAvatarModelsBodyColorsModel) MarshalJSON() ([]byte, error) {
 
 func (o RobloxApiAvatarModelsBodyColorsModel) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.HeadColorId) {
+	if !httpclients.IsNil(o.HeadColorId) {
 		toSerialize["headColorId"] = o.HeadColorId
 	}
-	if !IsNil(o.TorsoColorId) {
+	if !httpclients.IsNil(o.TorsoColorId) {
 		toSerialize["torsoColorId"] = o.TorsoColorId
 	}
-	if !IsNil(o.RightArmColorId) {
+	if !httpclients.IsNil(o.RightArmColorId) {
 		toSerialize["rightArmColorId"] = o.RightArmColorId
 	}
-	if !IsNil(o.LeftArmColorId) {
+	if !httpclients.IsNil(o.LeftArmColorId) {
 		toSerialize["leftArmColorId"] = o.LeftArmColorId
 	}
-	if !IsNil(o.RightLegColorId) {
+	if !httpclients.IsNil(o.RightLegColorId) {
 		toSerialize["rightLegColorId"] = o.RightLegColorId
 	}
-	if !IsNil(o.LeftLegColorId) {
+	if !httpclients.IsNil(o.LeftLegColorId) {
 		toSerialize["leftLegColorId"] = o.LeftLegColorId
 	}
 	return toSerialize, nil

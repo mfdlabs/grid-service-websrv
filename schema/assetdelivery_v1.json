@@ -1,0 +1,191 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Asset Delivery Api v1",
+    "version": "v1"
+  },
+  "host": "assetdelivery.roblox.com",
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/v1/assets/batch": {
+      "post": {
+        "tags": [
+          "Batch"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json"
+        ],
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Roblox-Place-Id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "header",
+            "name": "Accept",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "header",
+            "name": "Roblox-Browser-Asset-Request",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "assetRequestItems",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Roblox.Web.Assets.BatchAssetRequestItem"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Roblox.Web.Assets.IAssetResponseItem"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Roblox.Web.Assets.BatchAssetRequestItem": {
+      "type": "object",
+      "properties": {
+        "assetName": {
+          "type": "string"
+        },
+        "assetType": {
+          "type": "string"
+        },
+        "clientInsert": {
+          "type": "boolean"
+        },
+        "placeId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "requestId": {
+          "type": "string"
+        },
+        "scriptInsert": {
+          "type": "boolean"
+        },
+        "serverPlaceId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "universeId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "accept": {
+          "type": "string"
+        },
+        "encoding": {
+          "type": "string"
+        },
+        "hash": {
+          "type": "string"
+        },
+        "userAssetId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "assetId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "version": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "assetVersionId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "modulePlaceId": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "assetFormat": {
+          "type": "string"
+        },
+        "roblox-assetFormat": {
+          "type": "string"
+        }
+      }
+    },
+    "Roblox.Web.Assets.IAssetItemError": {
+      "type": "object",
+      "properties": {
+        "Code": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "Message": {
+          "type": "string"
+        },
+        "CustomErrorCode": {
+          "format": "int32",
+          "description": " ['UnknownError' = 0, 'NoPermissionToAsset' = 1, 'AssetPermissionCheckFailed' = 2, 'NotAuthorizedForAgeRecommendation' = 3, 'AgeRecommendationCheckFailed' = 4]",
+          "enum": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "type": "integer"
+        }
+      }
+    },
+    "Roblox.Web.Assets.IAssetResponseItem": {
+      "type": "object",
+      "properties": {
+        "Location": {
+          "type": "string"
+        },
+        "Errors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Roblox.Web.Assets.IAssetItemError"
+          }
+        },
+        "RequestId": {
+          "type": "string"
+        },
+        "IsHashDynamic": {
+          "type": "boolean"
+        },
+        "IsCopyrightProtected": {
+          "type": "boolean"
+        },
+        "IsArchived": {
+          "type": "boolean",
+          "readOnly": true
+        }
+      }
+    }
+  }
+}

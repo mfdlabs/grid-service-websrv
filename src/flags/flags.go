@@ -60,6 +60,9 @@ var (
 	// AvatarFetchCacheItemExpiration is the expiration time of an item in the avatar fetch cache.
 	AvatarFetchCacheItemExpiration = flag.Duration("avatar-fetch-cache-item-expiration", 5*time.Minute, "Expiration time of an item in the avatar fetch cache. (environment variable: AVATAR_FETCH_CACHE_ITEM_EXPIRATION)")
 
+	// AvatarApiShouldDowngradeBodyColorsFormat is whether or not to downgrade the body colors format.
+	AvatarApiShouldDowngradeBodyColorsFormat = flag.Bool("avatar-api-should-downgrade-body-colors-format", true, "Whether or not to downgrade the body colors format. (environment variable: AVATAR_API_SHOULD_DOWNGRADE_BODY_COLORS_FORMAT)")
+
 	///////////////////////////////////////////////////////////////
 	// Ephemeral Counters Configuration
 	///////////////////////////////////////////////////////////////
@@ -84,11 +87,27 @@ var (
 
 	// EphemeralCountersInfluxDbReportingOrganization is the organization to report ephemeral counters to.
 	EphemeralCountersInfluxDbReportingOrganization = flag.String("ephemeral-counters-influxdb-reporting-organization", "mfdlabs", "Organization to report ephemeral counters to. (environment variable: EPHEMERAL_COUNTERS_INFLUXDB_REPORTING_ORGANIZATION)")
+
+	///////////////////////////////////////////////////////////////
+	// Version Compatibility Configuration
+	///////////////////////////////////////////////////////////////
+
+	// VersionCompatibilityAllowedClientMD5Hashes is the comma-separated list of allowed client MD5 hashes.
+	VersionCompatibilityAllowedClientMD5Hashes = flag.String("version-compatibility-allowed-client-md5-hashes", "", "Comma-separated list of allowed client MD5 hashes. (environment variable: VERSION_COMPATIBILITY_ALLOWED_CLIENT_MD5_HASHES)")
+
+	///////////////////////////////////////////////////////////////
+	// Asset Delivery API Configuration
+	///////////////////////////////////////////////////////////////
+
+	// AssetDeliveryApiUrl is the URL of the Asset Delivery API.
+	AssetDeliveryApiUrl = flag.String("asset-delivery-api-url", "https://assetdelivery.roblox.com", "URL of the Asset Delivery API. (environment variable: ASSET_DELIVERY_API_URL)")
 )
 
 const FlagsUsageString string = `
 	[-h|--help] [--bind-address-ipv4[=:8080]] 
 	[--vault-address=http://localhost:8200] [--vault-credential[=]] [--vault-authentication-type[=token]] [--vault-namespace[=]] [--vault-skip-tls-verify[=false]]
 	[--client-settings-vault-mount-path[=client-settings]] [--client-settings-vault-path[=]] [--client-settings-provider-refresh-interval[=30]] [--client-settings-api-keys[=]]
-	[--avatar-api-url[=https://avatar.roblox.com]] [--avatar-fetch-cache-invalidation-interval[=5m0s]] [--avatar-fetch-cache-item-expiration[=5m0s]]
-	[--ephemeral-counters-influxdb-reporting-enabled[=false]] [--ephemeral-counters-influxdb-reporting-interval[=10s]] [--ephemeral-counters-influxdb-reporting-url[=http://localhost:8086]] [--ephemeral-counters-influxdb-reporting-database[=ephemeral_counters]] [--ephemeral-counters-influxdb-reporting-token[=]] [--ephemeral-counters-influxdb-reporting-organization[=mfdlabs]]`
+	[--avatar-api-url[=https://avatar.roblox.com]] [--avatar-fetch-cache-invalidation-interval[=5m0s]] [--avatar-fetch-cache-item-expiration[=5m0s]] [--avatar-api-should-downgrade-body-colors-format[=true]]
+	[--ephemeral-counters-influxdb-reporting-enabled[=false]] [--ephemeral-counters-influxdb-reporting-interval[=10s]] [--ephemeral-counters-influxdb-reporting-url[=http://localhost:8086]] [--ephemeral-counters-influxdb-reporting-database[=ephemeral_counters]] [--ephemeral-counters-influxdb-reporting-token[=]] [--ephemeral-counters-influxdb-reporting-organization[=mfdlabs]]
+	[--version-compatibility-allowed-client-md5-hashes[=]]
+	[--asset-delivery-api-url[=https://assetdelivery.roblox.com]]`

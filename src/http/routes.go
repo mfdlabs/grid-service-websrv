@@ -2,6 +2,8 @@ package http
 
 import (
 	"github.com/gorilla/mux"
+	"github.com/mfdlabs/grid-service-websrv/routes/apiproxy"
+	"github.com/mfdlabs/grid-service-websrv/routes/assetdelivery"
 	"github.com/mfdlabs/grid-service-websrv/routes/avatar"
 	"github.com/mfdlabs/grid-service-websrv/routes/clientsettings"
 	"github.com/mfdlabs/grid-service-websrv/routes/ephemeralcounters"
@@ -14,4 +16,6 @@ func registerRoutes(r *mux.Router) {
 	avatar.RegisterRoutes(r)
 	versioncompatibility.RegisterRoutes(r)
 	ephemeralcounters.RegisterRoutes(r)
+	assetdelivery.RegisterRoutes(r)
+	apiproxy.RegisterRoutes(r)
 }

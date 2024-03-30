@@ -1,4 +1,4 @@
-IMAGE_TAG := $(shell git rev-parse HEAD 2> /dev/null)
+IMAGE_TAG ?= $(shell git rev-parse HEAD 2> /dev/null)
 
 ifeq ($(strip $(SILENT)),)
 	TO_NUL := 

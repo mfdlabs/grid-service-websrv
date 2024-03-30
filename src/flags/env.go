@@ -17,6 +17,7 @@ func applyEnvironmentVariableFlags() {
 	getEnvironmentVariableOrFlag("AVATAR_API_URL", AvatarApiUrl)
 	getEnvironmentVariableOrFlag("AVATAR_FETCH_CACHE_INVALIDATION_INTERVAL", AvatarFetchCacheInvalidationInterval)
 	getEnvironmentVariableOrFlag("AVATAR_FETCH_CACHE_ITEM_EXPIRATION", AvatarFetchCacheItemExpiration)
+	getEnvironmentVariableOrFlag("AVATAR_API_SHOULD_DOWNGRADE_BODY_COLORS_FORMAT", AvatarApiShouldDowngradeBodyColorsFormat)
 
 	getEnvironmentVariableOrFlag("EPHEMERAL_COUNTERS_INFLUXDB_REPORTING_ENABLED", EphemeralCountersInfluxDbReportingEnabled)
 	getEnvironmentVariableOrFlag("EPHEMERAL_COUNTERS_INFLUXDB_MAX_BATCH_SIZE", EphemeralCountersInfluxDbMaxBatchSize)
@@ -25,4 +26,6 @@ func applyEnvironmentVariableFlags() {
 	getEnvironmentVariableOrFlag("EPHEMERAL_COUNTERS_INFLUXDB_REPORTING_DATABASE", EphemeralCountersInfluxDbReportingDatabase)
 	getEnvironmentVariableOrFlag("EPHEMERAL_COUNTERS_INFLUXDB_REPORTING_TOKEN", EphemeralCountersInfluxDbReportingToken)
 	getEnvironmentVariableOrFlag("EPHEMERAL_COUNTERS_INFLUXDB_REPORTING_ORGANIZATION", EphemeralCountersInfluxDbReportingOrganization)
+
+	getEnvironmentVariableOrFlag("VERSION_COMPATIBILITY_ALLOWED_CLIENT_MD5_HASHES", VersionCompatibilityAllowedClientMD5Hashes)
 }
