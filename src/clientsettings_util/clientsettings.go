@@ -13,6 +13,7 @@ import (
 
 	"github.com/golang/glog"
 	"github.com/hashicorp/vault/api"
+	"github.com/mfdlabs/grid-service-websrv/metrics"
 )
 
 // ClientSettingsProvider provides the client settings in a thread-safe way.
@@ -68,6 +69,8 @@ func mergeArrays(a, b []string) []string {
 }
 
 func (csp *ClientSettingsProvider) resolveWithDependencies(group string) (map[string]interface{}, []string, bool) {
+	metrics.GroupReads.WithLabelValues(group).Inc()
+
 	var (
 		cs  map[string]interface{}
 		dps []string
@@ -148,6 +151,8 @@ func (csp *ClientSettingsProvider) Set(group, name string, value interface{}) (b
 func (csp *ClientSettingsProvider) Import(group string, data map[string]interface{}, depends []string, isAllowedFromClientSettingsService bool) error {
 	csp.rwMutex.Lock()
 	defer csp.rwMutex.Unlock()
+
+	metrics.GroupWrites.WithLabelValues(group).Inc()
 
 	// It is in the format of rbx-client-settings.
 	// We need to convert it to the format that Vault expects.
@@ -463,6 +468,7 @@ func (csp *ClientSettingsProvider) doRefresh() error {
 
 	stringGroups := make([]string, len(groups.Data["keys"].([]interface{})))
 	for _, group := range groups.Data["keys"].([]interface{}) {
+		metrics.SettingsRefreshes.WithLabelValues(group.(string)).Inc()
 		csp.getSettingsForGroupAndCache(group.(string))
 		stringGroups = append(stringGroups, group.(string))
 	}
