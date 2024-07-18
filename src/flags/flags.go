@@ -47,6 +47,9 @@ var (
 	// ClientSettingsApiKeys is the comma-separated list of API keys to use to authenticate with the client settings provider.
 	ClientSettingsApiKeys = flag.String("client-settings-api-keys", "", "Comma-separated list of API keys to use to authenticate with the client settings provider. (environment variable: CLIENT_SETTINGS_API_KEYS)")
 
+	// ClientSettingsSecuredSettingsList is a comma-seperated list of applications that can only be accessed via game servers or through client settings secured settings API.
+	ClientSettingsSecuredSettingsList = flag.String("client-settings-secured-settings-list", "", "Comma-separated list of applications that can only be accessed via game servers or through client settings secured settings API. (environment variable: CLIENT_SETTINGS_SECURED_SETTINGS_LIST)")
+
 	///////////////////////////////////////////////////////////////
 	// Avatar Configuration
 	///////////////////////////////////////////////////////////////
