@@ -21,7 +21,7 @@ job "grid-service-websrv" {
 
   # RBX Proxy nodes
   group "grid-service-websrv" {
-    count = 3
+    count = 4
 
     network {
       mode = "host"
@@ -41,18 +41,16 @@ job "grid-service-websrv" {
       template {
         data        = <<EOF
 BIND_ADDRESS_IPv4 = ":{{ env "NOMAD_PORT_http" }}"
+VAULT_ADDR = "http://vault.service.consul:8200"
 
-{{ range service "vault" }}
-VAULT_ADDR = "http://{{ .Address }}:8200"
-{{ end }}
+{{ with secret "secret/teams/application/grid-service-websrv" }}
 
-{{ with secret "kv-migration/grid-service-websrv" }}
-
-{{ if .Data.data }}
-{{ range $key, $value := .Data.data }}
-{{ $key }} = "{{ $value }}"
-{{ end }}
-{{ end }}
+AVATAR_API_SHOULD_DOWNGRADE_BODY_COLORS_FORMAT="{{ .Data.AVATAR_API_SHOULD_DOWNGRADE_BODY_COLORS_FORMAT }}"
+CLIENT_SETTINGS_API_KEYS="{{ .Data.CLIENT_SETTINGS_API_KEYS }}"
+CLIENT_SETTINGS_SECURED_SETTINGS_LIST="{{ .Data.CLIENT_SETTINGS_SECURED_SETTINGS_LIST }}"
+VAULT_AUTHENTICATION_TYPE="{{ .Data.VAULT_AUTHENTICATION_TYPE }}"
+VAULT_CREDENTIAL="{{ .Data.VAULT_CREDENTIAL }}"
+VERSION_COMPATIBILITY_ALLOWED_CLIENT_MD5_HASHES="{{ .Data.VERSION_COMPATIBILITY_ALLOWED_CLIENT_MD5_HASHES }}"
 
 {{ end }}
 EOF
