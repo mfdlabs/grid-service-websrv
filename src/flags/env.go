@@ -13,6 +13,7 @@ func applyEnvironmentVariableFlags() {
 	getEnvironmentVariableOrFlag("CLIENT_SETTINGS_VAULT_PATH", ClientSettingsVaultPath)
 	getEnvironmentVariableOrFlag("CLIENT_SETTINGS_PROVIDER_REFRESH_INTERVAL", ClientSettingsProviderRefreshInterval)
 	getEnvironmentVariableOrFlag("CLIENT_SETTINGS_API_KEYS", ClientSettingsApiKeys)
+	getEnvironmentVariableOrFlag("CLIENT_SETTINGS_SECURED_SETTINGS_LIST", ClientSettingsSecuredSettingsList)
 
 	getEnvironmentVariableOrFlag("AVATAR_API_URL", AvatarApiUrl)
 	getEnvironmentVariableOrFlag("AVATAR_FETCH_CACHE_INVALIDATION_INTERVAL", AvatarFetchCacheInvalidationInterval)

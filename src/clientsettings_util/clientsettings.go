@@ -111,6 +111,26 @@ func (csp *ClientSettingsProvider) GetGroup(group string) (map[string]interface{
 	return cs, depends, csp.allowedGroupsFromClientSettingsService[group], true
 }
 
+// GetGroup returns the client settings.
+func (csp *ClientSettingsProvider) GetGroupWithBucket(group, bucket string) (map[string]interface{}, []string, bool, bool) {
+	csp.rwMutex.RLock()
+	defer csp.rwMutex.RUnlock()
+
+	cs, depends, ok := csp.resolveWithDependencies(group)
+	if !ok {
+		return nil, nil, false, false
+	}
+
+	bs, _, ok := csp.resolveWithDependencies(bucket)
+	if !ok {
+		return nil, nil, false, false
+	}
+
+	cs = mergeMaps(cs, bs)
+
+	return cs, depends, csp.allowedGroupsFromClientSettingsService[group], true
+}
+
 // Get returns a client setting.
 func (csp *ClientSettingsProvider) Get(group, name string) (interface{}, bool) {
 	csp.rwMutex.RLock()

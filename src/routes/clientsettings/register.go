@@ -38,5 +38,11 @@ func RegisterRoutes(r *mux.Router) {
 
 		r.HandleFunc("/{route:(?:(?i)v1\\/settings\\/application\\/setting)\\/?}", getApplicationSetting).Methods("GET")
 		r.HandleFunc("/{route:(?:(?i)v1\\/settings\\/application\\/setting)\\/?}", setApplicationSetting).Methods("POST")
+
+		r.HandleFunc("/v2/settings/application/{applicationName}", getApplicationSettingsV2).Methods("GET")
+		r.HandleFunc("/v2/settings/application/{applicationName}/bucket/{bucketName}", getApplicationSettingsWithBucket).Methods("GET")
+
+		r.HandleFunc("/v2/settings/secured-settings/{applicationName}", getSecuredApplicationSettings).Methods("GET")
+		r.HandleFunc("/v2/settings/secured-settings/{applicationName}/bucket/{bucketName}", getSecuredApplicationSettingsWithBucket).Methods("GET")
 	})
 }
